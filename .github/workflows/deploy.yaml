@@ -42,20 +42,20 @@ jobs:
         run: npm ci
       - name: Install Quartz plugins
         run: npx quartz plugin install
-        name: Build Quartz
+      - name: Build Quartz
         run: npx quartz build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
-deploy:
-  needs: build
-  enviroment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
-  runs-on: ubuntu-latest
-  steps:
-    - name: Deploy to Github Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
